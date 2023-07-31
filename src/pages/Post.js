@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styles from "../css/post.module.css";
 import Markdown from "markdown-to-jsx";
 import CodeSnippet from "../components/CodeSnippet";
-import { useParams } from "react-router-dom";
+import { BackArrow } from "../assets/icon";
+import { useParams, useHistory } from "react-router-dom";
 import { topics } from "../data/topics";
+import ThemeContext from "../context/ThemeContext";
 
 const Post = () => {
   const [postContent, setPostContent] = useState("");
   const params = useParams();
+  const { isDark } = useContext(ThemeContext);
+  const history = useHistory();
 
   useEffect(() => {
     const markdownTitle = topics.find(
@@ -29,8 +33,17 @@ const Post = () => {
     fetchPostData(markdownTitle);
   }, [params.id]);
 
+  const goToHome = () => {
+    history.push("/");
+  };
+
   return (
     <section className={`container ${styles["post__container"]}`}>
+      <BackArrow
+        color={isDark ? "#e5e5e5" : "#121212"}
+        className={styles["back-arrow"]}
+        onClick={goToHome}
+      />
       <article className={styles["post-article"]}>
         <Markdown
           options={{

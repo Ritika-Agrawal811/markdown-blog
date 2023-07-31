@@ -25,13 +25,13 @@ export const topics = [
     title: "Useful VS Code Keyboard Shortcuts",
     description: "A collection of vs code shortcuts to improve coding speed.",
     markdownTitle: "vscodeShortcuts",
-    headerColor: "#643843",
+    headerColor: "#557A46",
   },
   {
     id: 5,
     title: "Important Git Commands",
     description: "A list of git commands important for managing a project",
     markdownTitle: "gitCommands",
-    headerColor: "#643843",
+    headerColor: "#E55807",
   },
 ];

@@ -1,5 +1,5 @@
 .articles___container {
-  padding-top: 8em;
+  padding: 8em 0 4rem 0;
   min-height: 100vh;
 }
 
@@ -44,8 +44,8 @@
 @media (min-width: 540px) {
   .articles___container {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
+    gap: 1rem;
   }
 
   .article__card {
@@ -54,6 +54,10 @@
 }
 
 @media (min-width: 1024px) {
+  .articles___container {
+    gap: 1.5rem;
+  }
+
   .article__card {
     width: calc((100% - 3rem) / 3);
   }

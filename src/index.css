@@ -40,7 +40,6 @@ body {
 .container {
   width: min(95%, 1200px);
   margin: 0 auto;
-  /* border: 2px solid red; */
 }
 
 .icon {
