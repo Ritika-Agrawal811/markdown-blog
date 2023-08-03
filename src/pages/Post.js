@@ -6,11 +6,13 @@ import { BackArrow } from "../assets/icon";
 import { useParams, useHistory } from "react-router-dom";
 import { topics } from "../data/topics";
 import ThemeContext from "../context/ThemeContext";
+import LoadingSkeleton from "../components/LoadingSkeleton";
 
 const Post = () => {
   const [postContent, setPostContent] = useState("");
-  const params = useParams();
+  const [loading, setLoading] = useState(true);
   const { isDark } = useContext(ThemeContext);
+  const params = useParams();
   const history = useHistory();
 
   useEffect(() => {
@@ -20,13 +22,15 @@ const Post = () => {
 
     const fetchPostData = async (markdownTitle) => {
       try {
+        setLoading(true);
         const fileData = await import(`../markdown/${markdownTitle}.md`);
         let postData = await fetch(fileData.default);
         postData = await postData.text();
-
         setPostContent(postData);
       } catch (error) {
         console.log(error.message);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -45,17 +49,21 @@ const Post = () => {
         onClick={goToHome}
       />
       <article className={styles["post-article"]}>
-        <Markdown
-          options={{
-            overrides: {
-              CodeSnippet: {
-                component: CodeSnippet,
+        {loading ? (
+          <LoadingSkeleton />
+        ) : (
+          <Markdown
+            options={{
+              overrides: {
+                CodeSnippet: {
+                  component: CodeSnippet,
+                },
               },
-            },
-          }}
-        >
-          {postContent}
-        </Markdown>
+            }}
+          >
+            {postContent}
+          </Markdown>
+        )}
       </article>
     </section>
   );
