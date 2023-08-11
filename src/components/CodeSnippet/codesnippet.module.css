@@ -1,0 +1,19 @@
+.code-snippet__container {
+  margin: 1em 0 2em 0;
+  position: relative;
+  padding: 0.5em;
+  background-color: var(--code-block);
+}
+
+.copy-icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 5;
+}
+
+@media (max-width: 768px) {
+  .code-snippet__container {
+    padding: 1em;
+  }
+}

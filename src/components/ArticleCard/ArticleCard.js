@@ -1,9 +1,10 @@
 import React from "react";
-import styles from "../css/articles.module.css";
+import styles from "./articlecard.module.css";
 import { Link } from "react-router-dom";
 
 const ArticleCard = ({ data }) => {
   const { id, title, headerColor, description } = data;
+
   return (
     <article className={styles["article__card"]}>
       <div

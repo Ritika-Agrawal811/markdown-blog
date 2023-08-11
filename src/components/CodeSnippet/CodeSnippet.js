@@ -4,10 +4,10 @@ import {
   materialDark,
   materialLight,
 } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { CopyIcon, PasteIcon } from "../assets/icon";
-import ThemeContext from "../context/ThemeContext";
+import { CopyIcon, PasteIcon } from "../../assets/icon";
+import ThemeContext from "../../context/ThemeContext";
 import CopyToClipboard from "react-copy-to-clipboard";
-import styles from "../css/post.module.css";
+import styles from "./codesnippet.module.css";
 
 const CodeSnippet = ({ children, language }) => {
   const [copied, setCopied] = useState(false);
@@ -27,10 +27,7 @@ const CodeSnippet = ({ children, language }) => {
 
   return (
     <div className={styles["code-snippet__container"]}>
-      <CopyToClipboard
-        text={children}
-        onCopy={handleCopy}
-      >
+      <CopyToClipboard text={children} onCopy={handleCopy}>
         <button className={`icon ${styles["copy-icon"]}`}>
           {copied ? <PasteIcon /> : <CopyIcon />}
         </button>
