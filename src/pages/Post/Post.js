@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useCallback } from "react";
 import styles from "./post.module.css";
 import Markdown from "markdown-to-jsx";
-import CodeSnippet from "../../components/CodeSnippet/CodeSnippet";
 import { BackArrow } from "../../assets/icon";
 import { useParams, useHistory } from "react-router-dom";
-import data from "../../data/topics.json";
 import ThemeContext from "../../context/ThemeContext";
-import LoadingSkeleton from "../../components/LoadingSkeleton";
+import data from "../../data/topics.json";
+import LoadingSkeleton from "../../components/loadingSkeleton/LoadingSkeleton";
+import CodeSnippet from "../../components/codeSnippet/CodeSnippet";
 
 const Post = () => {
   const [postContent, setPostContent] = useState("");
@@ -15,27 +15,27 @@ const Post = () => {
   const params = useParams();
   const history = useHistory();
 
+  const fetchPostData = useCallback(async (markdownTitle) => {
+    try {
+      setLoading(true);
+      const fileData = await import(`../../markdown/${markdownTitle}.md`);
+      let postData = await fetch(fileData.default);
+      postData = await postData.text();
+      setPostContent(postData);
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     const markdownTitle = data.topics.find(
       (item) => item.id.toString() === params.id
     ).markdownTitle;
 
-    const fetchPostData = async (markdownTitle) => {
-      try {
-        setLoading(true);
-        const fileData = await import(`../../markdown/${markdownTitle}.md`);
-        let postData = await fetch(fileData.default);
-        postData = await postData.text();
-        setPostContent(postData);
-      } catch (error) {
-        console.log(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchPostData(markdownTitle);
-  }, [params.id]);
+  }, [params.id, fetchPostData]);
 
   const goToHome = () => {
     history.push("/");

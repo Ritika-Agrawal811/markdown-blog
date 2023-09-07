@@ -1,6 +1,6 @@
 import React from "react";
 import data from "../../data/topics.json";
-import ArticleCard from "../../components/ArticleCard/ArticleCard";
+import ArticleCard from "../../components/articleCard/ArticleCard";
 import styles from "./articles.module.css";
 
 const ArticleCardsContainer = () => {
